@@ -101,4 +101,33 @@ public class BorrowedBooksServiceImpl implements BorrowedBooksService {
 		return returnValue;
 	}
 
+	@Override
+	public List<BorrowedBooksDto> getBorrowedBooks() {
+		List<BorrowedBooksDto> returnValue = new ArrayList<>();
+
+		List<BorrowedBooksEntity> borrowedBooksData = borrowedBooksRepository.findAll();
+
+		for (BorrowedBooksEntity eachData : borrowedBooksData) {
+			BorrowedBooksDto newData = new BorrowedBooksDto();
+			newData.setUser(eachData.getUser());
+			newData.setSingleBook(eachData.getBook());
+
+			Boolean isLate = false;
+
+			OffsetDateTime returnTime = eachData.getReturnedAt();
+			OffsetDateTime deadlineTime = eachData.getDeadline();
+
+			if (returnTime.isAfter(deadlineTime)) {
+				isLate = true; // Set the boolean to true if returnTime is after deadlineTime
+			}
+
+			newData.setIsLate(isLate);
+
+			returnValue.add(newData);
+		}
+
+		// TODO Auto-generated method stub
+		return returnValue;
+	}
+
 }

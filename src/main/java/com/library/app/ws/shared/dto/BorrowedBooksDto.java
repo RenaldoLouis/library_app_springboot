@@ -16,10 +16,12 @@ public class BorrowedBooksDto implements Serializable {
 
 	private long id;
 	private UserEntity user;
+	private BooksEntity singleBook;
 	private List<BooksEntity> book;
 	private Integer borrowDuration;
 	protected OffsetDateTime deadline;
 	protected OffsetDateTime borrowedAt;
 	protected OffsetDateTime returnedAt;
 	private List<Integer> bookIds;
+	private Boolean isLate;
 }

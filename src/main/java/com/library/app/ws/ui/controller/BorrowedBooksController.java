@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.library.app.ws.model.request.BorrowedBooksDetailsRequestModel;
 import com.library.app.ws.model.request.ReturnedBooksDetailsRequestModel;
 import com.library.app.ws.model.response.BorrowBookResp;
 import com.library.app.ws.model.response.ErrorMessages;
+import com.library.app.ws.model.response.GetBorrowBookResp;
 import com.library.app.ws.service.BorrowedBooksService;
 import com.library.app.ws.shared.dto.BorrowedBooksDto;
 
@@ -74,4 +76,20 @@ public class BorrowedBooksController {
 		return returnValue;
 	}
 
+	@GetMapping("/getBorrowedBooks")
+	public List<GetBorrowBookResp> getBorrowBook() throws Exception {
+		List<GetBorrowBookResp> returnedValue = new ArrayList<>();
+
+		List<BorrowedBooksDto> borrowedBooksDtos = borrowedBooksService.getBorrowedBooks();
+
+		for (BorrowedBooksDto eachData : borrowedBooksDtos) {
+			GetBorrowBookResp resp = new GetBorrowBookResp();
+			resp.setUsername(eachData.getUser().getUsername());
+			resp.setBookname(eachData.getSingleBook().getName());
+			resp.setIsLate(eachData.getIsLate());
+			returnedValue.add(resp);
+		}
+
+		return returnedValue;
+	}
 }
