@@ -7,7 +7,7 @@ A simple Library Management Application built with Spring Boot, using PostgreSQL
 - Automated database migrations using Liquibase.
 
 ## Prerequisites
-1. **PostgreSQL**: Ensure PostgreSQL is installed and a database (e.g., `library_db`) is created.
+1. **PostgreSQL**: Ensure PostgreSQL is installed.
 2. **Spring Tool Suite (STS)**: Install [Spring Tool Suite](https://spring.io/tools) as your IDE.
 3. **Lombok**: Install the Lombok plugin in STS.
 4. **Liquibase**: Used for database schema (DDL) management.
