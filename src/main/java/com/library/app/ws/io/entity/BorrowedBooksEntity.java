@@ -32,12 +32,12 @@ public class BorrowedBooksEntity {
 	private BooksEntity book;
 
 	@CreationTimestamp
-	@Column(name = "created_at", updatable = false, nullable = false)
-	protected OffsetDateTime createdAt = OffsetDateTime.now();
-
 	@Column(name = "borrowed_at", updatable = false, nullable = false)
 	protected OffsetDateTime borrowedAt = OffsetDateTime.now();
 
-	@Column(name = "returned_at", updatable = false, nullable = false)
-	protected OffsetDateTime returnedAt = OffsetDateTime.now();
+	@Column(name = "returned_at", updatable = false, nullable = true)
+	protected OffsetDateTime returnedAt;
+
+	@Column(name = "deadline", updatable = false, nullable = true)
+	protected OffsetDateTime deadline;
 }

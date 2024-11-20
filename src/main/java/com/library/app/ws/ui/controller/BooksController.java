@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.library.app.ws.exceptions.UserServiceException;
 import com.library.app.ws.model.request.BooksDetailRequestModel;
 import com.library.app.ws.model.response.BooksResp;
 import com.library.app.ws.model.response.ErrorMessages;
@@ -26,7 +25,7 @@ public class BooksController {
 		BooksResp returnValue = new BooksResp();
 
 		if (booksDetails.getName().isEmpty())
-			throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+			throw new RuntimeException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
 		ModelMapper modelMapper = new ModelMapper();
 		BooksDto booksDto = modelMapper.map(booksDetails, BooksDto.class);

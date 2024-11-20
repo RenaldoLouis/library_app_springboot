@@ -6,12 +6,8 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,17 +44,6 @@ public class UserController {
 		return returnedValue;
 	}
 
-	@PostAuthorize("hasRole('ADMIN') or returnObject.userId == principal.userId")
-	@GetMapping("/{id}")
-	public UserResp getUser(@PathVariable String id) {
-		UserResp returnValue = new UserResp();
-
-		UserDto userDto = userService.getUserByUserId(id);
-		BeanUtils.copyProperties(userDto, returnValue);
-
-		return returnValue;
-	}
-
 	@PostMapping("/signUp")
 	public UserResp createUser(@RequestBody UserDetailsRequestModel userDetails) throws Exception {
 		UserResp returnValue = new UserResp();
@@ -74,20 +59,5 @@ public class UserController {
 		returnValue = modelMapper.map(createdUser, UserResp.class);
 
 		return returnValue;
-	}
-
-	@PostMapping
-	public String addUser() {
-		return "add user called";
-	}
-
-	@PutMapping
-	public String updateUser() {
-		return "update user called";
-	}
-
-	@DeleteMapping
-	public String deleteUser() {
-		return "delete user called";
 	}
 }

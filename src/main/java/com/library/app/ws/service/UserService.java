@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.library.app.ws.shared.dto.UserDto;
 
 public interface UserService extends UserDetailsService {
-	UserDto createUser(UserDto user); // yang dipaling kiri itu nentuin type balikannya apa
+	UserDto createUser(UserDto user);
 
 	UserDto getUser(String email);
 
-	UserDto getUserByUserId(String userId);
+	UserDto getUserByUserId(long userId);
 
 	List<UserDto> findUserByFirstName(int page, int limit, String firstName);
 

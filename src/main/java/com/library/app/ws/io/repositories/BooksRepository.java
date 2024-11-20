@@ -8,4 +8,6 @@ import com.library.app.ws.io.entity.BooksEntity;
 @Repository
 public interface BooksRepository extends JpaRepository<BooksEntity, Long> {
 	BooksEntity findByName(String name);
+
+	BooksEntity findById(Integer bookId);
 }
