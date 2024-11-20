@@ -1,8 +1,6 @@
 package com.library.app.ws.ui.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -24,7 +22,6 @@ import com.library.app.ws.model.request.UserDetailsRequestModel;
 import com.library.app.ws.model.response.ErrorMessages;
 import com.library.app.ws.model.response.UserResp;
 import com.library.app.ws.service.UserService;
-import com.library.app.ws.shared.Roles;
 import com.library.app.ws.shared.dto.UserDto;
 
 @RestController
@@ -51,9 +48,7 @@ public class UserController {
 		return returnedValue;
 	}
 
-	@PostAuthorize("hasRole('ADMIN') or returnObject.userId == principal.userId") // principal itu currently loggedin
-																					// User, karena post itu bisa akses
-																					// hasil balikannya
+	@PostAuthorize("hasRole('ADMIN') or returnObject.userId == principal.userId")
 	@GetMapping("/{id}")
 	public UserResp getUser(@PathVariable String id) {
 		UserResp returnValue = new UserResp();
@@ -68,7 +63,7 @@ public class UserController {
 	public UserResp createUser(@RequestBody UserDetailsRequestModel userDetails) throws Exception {
 		UserResp returnValue = new UserResp();
 
-		if (userDetails.getFirstName().isEmpty())
+		if (userDetails.getUsername().isEmpty())
 			throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
 		// Shallow Copy
@@ -78,7 +73,7 @@ public class UserController {
 		// Deep Copy (should use this if theres object in object
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(userDetails, UserDto.class);
-		userDto.setRoles(new HashSet<>(Arrays.asList(Roles.ROLE_USER.name())));
+		userDto.setRole(userDetails.getRole());
 
 		UserDto createdUser = userService.createUser(userDto);
 		returnValue = modelMapper.map(createdUser, UserResp.class);
