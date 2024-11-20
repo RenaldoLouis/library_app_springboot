@@ -66,11 +66,6 @@ public class UserController {
 		if (userDetails.getUsername().isEmpty())
 			throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
-		// Shallow Copy
-//			UserDto userDto = new UserDto();
-//			BeanUtils.copyProperties(userDetails, userDto);
-
-		// Deep Copy (should use this if theres object in object
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(userDetails, UserDto.class);
 		userDto.setRole(userDetails.getRole());

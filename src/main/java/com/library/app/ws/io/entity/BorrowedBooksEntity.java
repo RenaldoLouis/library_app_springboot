@@ -1,8 +1,6 @@
 package com.library.app.ws.io.entity;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,39 +9,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users")
-public class UserEntity {
+@Table(name = "borrowed_books")
+public class BorrowedBooksEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
 
-	@Column(name = "username", nullable = false)
-	private String username;
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private UserEntity user;
 
-	@Column(name = "role", nullable = false)
-	private String role;
-
-	@Column(name = "email", nullable = false, length = 120)
-	private String email;
-
-	@Column(name = "password", nullable = false, length = 50)
-	private String password;
+	@ManyToOne
+	@JoinColumn(name = "book_id", nullable = false)
+	private BooksEntity book;
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false, nullable = false)
 	protected OffsetDateTime createdAt = OffsetDateTime.now();
 
-	@Column(name = "is_borrow")
-	private Boolean isBorrow;
+	@Column(name = "borrowed_at", updatable = false, nullable = false)
+	protected OffsetDateTime borrowedAt = OffsetDateTime.now();
 
-	// Add relationship to BorrowedBooksEntity
-	@OneToMany(mappedBy = "user")
-	private List<BorrowedBooksEntity> borrowedBooks = new ArrayList<>();
+	@Column(name = "returned_at", updatable = false, nullable = false)
+	protected OffsetDateTime returnedAt = OffsetDateTime.now();
 }

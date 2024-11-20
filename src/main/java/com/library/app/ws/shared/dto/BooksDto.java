@@ -6,13 +6,9 @@ import java.time.OffsetDateTime;
 import lombok.Data;
 
 @Data
-public class UserDto implements Serializable {
+public class BooksDto implements Serializable {
 	private static final long serialVersionUID = 6620619358278787349L;
 	private long id;
-	private String username;
-	private String role;
-	private String email;
-	private String password;
+	private String name;
 	private OffsetDateTime createdAt;
-	private Boolean isBorrow;
 }

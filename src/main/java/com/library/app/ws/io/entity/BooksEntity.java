@@ -17,33 +17,21 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users")
-public class UserEntity {
+@Table(name = "books")
+public class BooksEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
 
-	@Column(name = "username", nullable = false)
-	private String username;
-
-	@Column(name = "role", nullable = false)
-	private String role;
-
-	@Column(name = "email", nullable = false, length = 120)
-	private String email;
-
-	@Column(name = "password", nullable = false, length = 50)
-	private String password;
+	@Column(name = "name", nullable = false)
+	private String name;
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false, nullable = false)
 	protected OffsetDateTime createdAt = OffsetDateTime.now();
 
-	@Column(name = "is_borrow")
-	private Boolean isBorrow;
-
 	// Add relationship to BorrowedBooksEntity
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "book")
 	private List<BorrowedBooksEntity> borrowedBooks = new ArrayList<>();
 }
