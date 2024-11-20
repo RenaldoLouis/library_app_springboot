@@ -12,4 +12,6 @@
 
     <!-- Include changelog files -->
     <include file="liquibase/changelogs/changelog-init.xml" />
+     <include file="liquibase/changelogs/changelog-add-column-books.xml" />
+      <include file="liquibase/changelogs/changelog-add-column-borrowed-books.xml" />
 </databaseChangeLog>
