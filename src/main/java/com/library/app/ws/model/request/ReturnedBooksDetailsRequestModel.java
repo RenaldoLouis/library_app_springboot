@@ -5,9 +5,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class BorrowedBooksDetailsRequestModel {
+public class ReturnedBooksDetailsRequestModel {
 
 	private Integer userId;
 	private List<Integer> bookIds; // List of book IDs being borrowed
-	private Integer borrowDuration;
+
 }

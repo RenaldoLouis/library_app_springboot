@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.library.app.ws.io.entity.BooksEntity;
 import com.library.app.ws.model.request.BorrowedBooksDetailsRequestModel;
+import com.library.app.ws.model.request.ReturnedBooksDetailsRequestModel;
 import com.library.app.ws.model.response.BorrowBookResp;
 import com.library.app.ws.model.response.ErrorMessages;
 import com.library.app.ws.service.BorrowedBooksService;
@@ -46,7 +47,29 @@ public class BorrowedBooksController {
 		returnValue.setDeadline(createdBorrowedBook.getDeadline());
 		returnValue.setUsername(createdBorrowedBook.getUser().getUsername());
 
-//		returnValue = modelMapper.map(createdBorrowedBook, BorrowBookResp.class);
+		return returnValue;
+	}
+
+	@PostMapping("/return")
+	public BorrowBookResp returnBook(@RequestBody ReturnedBooksDetailsRequestModel borrowBookDetails) throws Exception {
+		BorrowBookResp returnValue = new BorrowBookResp();
+
+		if (borrowBookDetails.getBookIds().size() <= 0 && borrowBookDetails.getUserId() == null)
+			throw new RuntimeException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+
+		ModelMapper modelMapper = new ModelMapper();
+		BorrowedBooksDto borrowedBooksDto = modelMapper.map(borrowBookDetails, BorrowedBooksDto.class);
+
+		BorrowedBooksDto createdBorrowedBook = borrowedBooksService.returnBorrowedBook(borrowedBooksDto);
+
+		List<String> booksName = new ArrayList<>();
+		for (BooksEntity data : createdBorrowedBook.getBook()) {
+			booksName.add(data.getName());
+		}
+
+		returnValue.setBookname(booksName);
+		returnValue.setDeadline(createdBorrowedBook.getDeadline());
+		returnValue.setUsername(createdBorrowedBook.getUser().getUsername());
 
 		return returnValue;
 	}

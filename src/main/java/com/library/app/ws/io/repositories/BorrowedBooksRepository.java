@@ -7,5 +7,5 @@ import com.library.app.ws.io.entity.BorrowedBooksEntity;
 
 @Repository
 public interface BorrowedBooksRepository extends JpaRepository<BorrowedBooksEntity, Long> {
-
+	BorrowedBooksEntity findByUserIdAndBookId(long userId, Integer bookId);
 }

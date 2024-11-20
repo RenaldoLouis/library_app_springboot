@@ -6,4 +6,6 @@ public interface BorrowedBooksService {
 
 	BorrowedBooksDto createBorrowedBook(BorrowedBooksDto book);
 
+	BorrowedBooksDto returnBorrowedBook(BorrowedBooksDto book);
+
 }

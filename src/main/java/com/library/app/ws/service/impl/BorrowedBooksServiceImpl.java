@@ -16,6 +16,8 @@ import com.library.app.ws.io.repositories.UserRepository;
 import com.library.app.ws.service.BorrowedBooksService;
 import com.library.app.ws.shared.dto.BorrowedBooksDto;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BorrowedBooksServiceImpl implements BorrowedBooksService {
 
@@ -63,6 +65,38 @@ public class BorrowedBooksServiceImpl implements BorrowedBooksService {
 		returnValue.setUser(selectedUser);
 		returnValue.setBook(listBooks);
 		returnValue.setDeadline(deadlineTime);
+
+		return returnValue;
+	}
+
+	@Override
+	@Transactional
+	public BorrowedBooksDto returnBorrowedBook(BorrowedBooksDto book) {
+		BorrowedBooksDto returnValue = new BorrowedBooksDto();
+
+		OffsetDateTime currentTime = OffsetDateTime.now();
+
+		UserEntity selectedUser = userRepository.findById(book.getUser().getId())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+
+		List<BooksEntity> listBooks = new ArrayList<>();
+
+		for (Integer bookId : book.getBookIds()) {
+			BorrowedBooksEntity dataToSave = borrowedBooksRepository.findByUserIdAndBookId(selectedUser.getId(),
+					bookId);
+			BooksEntity selectedBooks = booksRepository.findById(bookId);
+			listBooks.add(selectedBooks);
+
+			dataToSave.setReturnedAt(currentTime);
+			borrowedBooksRepository.save(dataToSave);
+		}
+
+		selectedUser.setIsBorrow(false);
+
+		userRepository.save(selectedUser);
+
+		returnValue.setUser(selectedUser);
+		returnValue.setBook(listBooks);
 
 		return returnValue;
 	}

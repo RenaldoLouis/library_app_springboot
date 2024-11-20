@@ -35,7 +35,7 @@ public class BorrowedBooksEntity {
 	@Column(name = "borrowed_at", updatable = false, nullable = false)
 	protected OffsetDateTime borrowedAt = OffsetDateTime.now();
 
-	@Column(name = "returned_at", updatable = false, nullable = true)
+	@Column(name = "returned_at", updatable = true, nullable = true)
 	protected OffsetDateTime returnedAt;
 
 	@Column(name = "deadline", updatable = false, nullable = true)

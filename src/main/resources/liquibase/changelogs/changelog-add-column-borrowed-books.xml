@@ -41,11 +41,6 @@
             referencedTableName="books"
             referencedColumnNames="id"
             constraintName="fk_borrowed_books_book_id" />
-         
-        <addUniqueConstraint 
-		    tableName="borrowed_books"
-		    columnNames="user_id, book_id"
-		    constraintName="uq_user_book" />
 		    
 	  	<createIndex 
             tableName="borrowed_books"
