@@ -8,6 +8,6 @@ import lombok.Data;
 public class ReturnedBooksDetailsRequestModel {
 
 	private Integer userId;
-	private List<Integer> bookIds; // List of book IDs being borrowed
+	private List<Integer> bookIds;
 
 }

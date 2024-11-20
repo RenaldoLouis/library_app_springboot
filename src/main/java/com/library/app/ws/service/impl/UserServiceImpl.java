@@ -1,13 +1,9 @@
 package com.library.app.ws.service.impl;
 
-import java.util.List;
-
 import javax.management.RuntimeErrorException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +20,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public UserDto createUser(UserDto user) {
@@ -52,81 +42,6 @@ public class UserServiceImpl implements UserService {
 		UserDto returnValue = modelMapper.map(storedUserDetails, UserDto.class);
 
 		return returnValue;
-	}
-
-	@Override
-	public UserDto getUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UserDto getUserByUserId(long userId) {
-//		UserDto returnValue = new UserDto();
-//
-////	        UserEntity userEntity = userRepository.findByUserId(userId);
-//		UserEntity userEntity = userRepository.findUserEntityByUserId(userId);
-//
-//		if (userEntity == null)
-//			throw new UsernameNotFoundException("User With ID : " + userId + " Not Found");
-//
-//		BeanUtils.copyProperties(userEntity, returnValue);
-//		return returnValue;
-		return null;
-	}
-
-	@Override
-	public List<UserDto> findUserByFirstName(int page, int limit, String firstName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String confirmUser(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String updateUserEmailStatus(String userId, Boolean status) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UserDto updateUser(String userId, UserDto user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteUser(String userId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<UserDto> getUsers(int page, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<UserDto> getConfirmedUsers(int page, int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean verifyEmailToken(String token) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean resetPassword(String token, String password) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
